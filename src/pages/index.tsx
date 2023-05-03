@@ -1,4 +1,5 @@
 import Header from 'components/components/Header/Header'
+import Map from 'components/components/Map'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -8,11 +9,10 @@ export default function Home () {
     <>
       <Header />
       <main
-        className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+        className={`${inter.className}`}
       >
-
+        <Map />
       </main>
     </>
-
   )
 }
