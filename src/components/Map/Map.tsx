@@ -16,7 +16,7 @@ export default function Map () {
     <MapContainer
       id="mapId"
       center={defaultLatLng}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: '100vh', width: '100%', zIndex: 1 }}
       zoom={100}
       scrollWheelZoom={false}
       zoomControl={false}

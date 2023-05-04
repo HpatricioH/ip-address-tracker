@@ -1,4 +1,5 @@
 import Header from 'components/components/Header/Header'
+import IpInformation from 'components/components/IpInformation/IpInformation'
 import Map from 'components/components/Map'
 import { Inter } from 'next/font/google'
 
@@ -9,8 +10,9 @@ export default function Home () {
     <>
       <Header />
       <main
-        className={`${inter.className}`}
+        className={`${inter.className} relative`}
       >
+        <IpInformation/>
         <Map />
       </main>
     </>
