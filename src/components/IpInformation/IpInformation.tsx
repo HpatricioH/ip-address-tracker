@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 import { useEffect, useState } from 'react'
 import data from '../../lib/data/data.json'
 
@@ -26,7 +26,8 @@ interface IpType {
 }
 
 export default function IpInformation () {
-  const [ipData, setIpData] = useState({} as IpType)
+  const [ipData, setIpData] = useState<IpType | null >(null)
+  const regionString = ipData?.location.region
   // const KEY = process.env.NEXT_PUBLIC_KEY_API as string
   // const URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}&ipAddress=8.8.8.8`
 
@@ -54,13 +55,13 @@ export default function IpInformation () {
       <div
         className="bg-white rounded-[0.85rem] py-6 flex flex-col justify-center items-center [&_h3]:text-[#878383] [&_h3]:font-bold [&_h3]:text-[0.60rem] [&_h3]:uppercase [&_h3]:tracking-widest [&_h3]:pb-1 [&_p]:capitalize [&_p]:font-bold [&_p]:pb-6 [&_p]:text-xl" >
         <h3>ip address</h3>
-          <p>192.212.174.101</p>
+          <p>{ipData?.ip}</p>
         <h3>location</h3>
-          <p>brooklyn, NY 10001</p>
+          <p>{ipData?.location?.city}, <span className='uppercase'>{regionString?.substring(0, 2)}</span> {ipData?.location.postalCode}</p>
         <h3>timezone</h3>
-          <p>UTC -05:00</p>
+          <p>UTC {ipData?.location.timezone}</p>
         <h3>isp</h3>
-          <p>spaceX Starlink</p>
+          <p>{ipData?.isp}</p>
       </div>
     </section>
   )
