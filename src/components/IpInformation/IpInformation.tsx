@@ -1,54 +1,33 @@
-// import axios from 'axios'
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import data from '../../lib/data/data.json'
-
-interface IpType {
-  ip: string
-  location: {
-    country: string
-    region: string
-    city: string
-    lat: number
-    lng: number
-    postalCode: string
-    timezone: string
-    geonameId: number
-  }
-  domains: string[]
-  as: {
-    asn: number
-    name: string
-    route: string
-    domain: string
-    type: string
-  }
-  isp: string
-}
+import { type IpType } from 'components/lib/types/types'
+import { useIpData } from 'components/lib/store/ipData'
+import { get } from 'http'
 
 export default function IpInformation () {
   const [ipData, setIpData] = useState<IpType | null >(null)
   const regionString = ipData?.location.region
-  // const KEY = process.env.NEXT_PUBLIC_KEY_API as string
-  // const URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}&ipAddress=8.8.8.8`
+  const { ip } = useIpData()
+  const KEY = process.env.NEXT_PUBLIC_KEY_API as string
+  const URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}&ipAddress=${ip}`
 
-  // const getIpInfo = async () => {
-  //   // make a request to the ip geolocation api
-  //   try {
-  //     const response = await axios.get(URL)
-  //     if (response.data) {
-  //       setIpData(response.data)
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const getIpInfo = async () => {
+    // make a request to the ip geolocation api
+    try {
+      const response = await axios.get(URL)
+      if (response.data) {
+        setIpData(response.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
-    // getIpInfo()
-    setIpData(data)
-  }, [])
-
-  console.log(ipData)
+    getIpInfo()
+    // setIpData(data)
+  }, [URL])
 
   return (
     <section className="absolute -top-24 z-10 w-full p-[1.5rem]">
@@ -61,7 +40,7 @@ export default function IpInformation () {
         <h3>timezone</h3>
           <p>UTC {ipData?.location.timezone}</p>
         <h3>isp</h3>
-          <p>{ipData?.isp}</p>
+          <p className='text-center'>{ipData?.isp}</p>
       </div>
     </section>
   )
