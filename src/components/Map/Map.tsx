@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, TileLayer, Marker, AttributionControl } from 'react-leaflet'
-import L, { type LatLngTuple } from 'leaflet'
+import L from 'leaflet'
+import { useEffect, useState } from 'react'
 import { useLocationCoordinates } from 'components/lib/store/locationCoordinates'
 
 const icon = L.icon({
@@ -11,22 +12,28 @@ const icon = L.icon({
 
 export default function Map () {
   const { lat, lng } = useLocationCoordinates()
+  const [mapKey, setMapKey] = useState(Date.now())
 
-  if (!lat || !lng) return null
-
-  const position: LatLngTuple = [lat, lng]
+  useEffect(() => {
+    if (lat !== null && lng !== null) {
+      setMapKey(Date.now()) // Update the map key to re-mount the MapContainer
+    }
+  }, [lat, lng])
 
   return (
     <MapContainer
-      center={position}
+      key={mapKey} // Update the key to re-mount the MapContainer
+      center={[lat, lng]}
       style={{ height: '100vh', width: '100%', zIndex: 1 }}
-      zoom={13}
+      zoom={100}
       scrollWheelZoom={false}
       zoomControl={false}
     >
       <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-      <Marker position={position} icon={icon}>
-      </Marker>
+      <AttributionControl prefix='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors' />
+
+      <Marker position={[lat, lng]} icon={icon} />
+
     </MapContainer>
   )
 }
