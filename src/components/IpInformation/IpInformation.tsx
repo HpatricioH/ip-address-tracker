@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import data from '../../lib/data/data.json'
 import { type IpType } from 'components/lib/types/types'
 import { useIpData } from 'components/lib/store/ipData'
-import { get } from 'http'
+import { useLocationCoordinates } from 'components/lib/store/locationCoordinates'
 
 export default function IpInformation () {
+  const { ip } = useIpData()
+  const { setLat, setLng } = useLocationCoordinates()
   const [ipData, setIpData] = useState<IpType | null >(null)
   const regionString = ipData?.location.region
-  const { ip } = useIpData()
   const KEY = process.env.NEXT_PUBLIC_KEY_API as string
   const URL = `https://geo.ipify.org/api/v2/country,city?apiKey=${KEY}&ipAddress=${ip}`
 
@@ -18,6 +18,8 @@ export default function IpInformation () {
       const response = await axios.get(URL)
       if (response.data) {
         setIpData(response.data)
+        setLat(response.data.location.lat)
+        setLng(response.data.location.lng)
       }
     } catch (error) {
       console.log(error)
@@ -26,7 +28,6 @@ export default function IpInformation () {
 
   useEffect(() => {
     getIpInfo()
-    // setIpData(data)
   }, [URL])
 
   return (
