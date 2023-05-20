@@ -17,8 +17,7 @@ export default function Map () {
       key={mapKey} // Update the key to re-mount the MapContainer
       center={[lat, lng]}
       style={{ height: '100vh', width: '100%', zIndex: 1 }}
-      zoom={100}
-      scrollWheelZoom={false}
+      zoom={20}
       zoomControl={false}
     >
       <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
