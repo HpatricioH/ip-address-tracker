@@ -20,7 +20,7 @@ export default function Header () {
         <h1 className='absolute top-6 text-[1.30rem] font-semibold text-[#F2F2F2] tracking-wider'>IP Address Tracker</h1>
         <div className='absolute top-20 px-4 w-[19rem] md:w-[30rem]'>
           <form className='relative' onSubmit={handleSubmit}>
-            <button className='flex justify-center items-center absolute bg-black h-14 w-[3.5rem] rounded-r-xl left-[13.5rem] hover:bg-[#3F3F3F] md:left-[24.5rem]'>
+            <button className='flex justify-center items-center absolute bg-black h-14 w-[3.5rem] rounded-r-xl left-[13.5rem] hover:bg-[#3F3F3F] md:left-[24.5rem]' data-testid='inputButton'>
               <Image src='/images/icon-arrow.svg' alt='arrow icon' width={11} height={11} />
             </button>
             <input
