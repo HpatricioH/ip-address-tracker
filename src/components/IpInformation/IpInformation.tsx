@@ -10,7 +10,7 @@ export default function IpInformation () {
           className="bg-white rounded-[0.85rem] py-6 flex flex-col justify-center items-center [&_h3]:text-[#878383] [&_h3]:font-bold [&_h3]:text-[0.60rem] [&_h3]:uppercase [&_h3]:tracking-widest [&_h3]:pb-1 [&_p]:capitalize [&_p]:font-bold [&_p]:pb-6 [&_p]:text-xl md:flex-row md:justify-evenly" >
           <div className='text-center md:border-r md:pr-6 md:text-left'>
             <h3>ip address</h3>
-              <p>{ipData?.ip}</p>
+              <p data-testid='ipData'>{ipData?.ip}</p>
           </div>
           <div className='text-center md:border-r md:pr-6 md:text-left'>
             <h3>location</h3>
